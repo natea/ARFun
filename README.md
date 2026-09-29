@@ -1,5 +1,13 @@
 # ARFun — webcam body tracking into Godot
 
+[![Wii-like game that tracks your body movement using your webcam](https://img.youtube.com/vi/oeDKybBkrgw/maxresdefault.jpg)](https://youtu.be/oeDKybBkrgw)
+
+▶️ **[Watch the demo on YouTube](https://youtu.be/oeDKybBkrgw)**
+
+This prototype was built during the
+[Build a Video Game with your Child](https://www.nerdyparentsclub.org/events) workshop,
+offered through the [Nerdy Parents Club of Cambridge](https://nerdyparents.org).
+
 ```
 webcam → tracker/tracker.py (MediaPipe Pose) → UDP 127.0.0.1:4242 → pose_receiver.gd (Godot)
 ```
