@@ -16,3 +16,6 @@ tracker/pose_landmarker_lite.task
 
 # Temporary preview renders from a Markdown preview app
 .clearance-rendered-preview-*/
+
+# Mixamo characters (download your own; their license forbids redistributing the raw files)
+characters/
