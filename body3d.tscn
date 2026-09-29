@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://bqfisscjo4qkk" path="res://mannequin.gd" id="2_c4110"]
 [ext_resource type="Environment" uid="uid://cn5msdrte50r7" path="res://env/studio.tres" id="3_vpaix"]
 [ext_resource type="Script" uid="uid://dwwhvww0gnpot" path="res://ball_game.gd" id="4_c4110"]
+[ext_resource type="Script" path="res://ping_pong/ping_pong_game.gd" id="5_hxab4"]
+[ext_resource type="PackedScene" uid="uid://qreclycnb1mx" path="res://ping_pong/ping_pong_table.tscn" id="6_hlp02"]
+[ext_resource type="Script" uid="uid://dfvnhl1cvv8m3" path="res://game_menu.gd" id="7_qc7p6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cp2iq"]
 albedo_color = Color(0.3, 0.33, 0.38, 1)
@@ -163,3 +166,12 @@ offset_bottom = 43.0
 
 [node name="BallGame" type="Node3D" parent="." unique_id=1455969853]
 script = ExtResource("4_c4110")
+
+[node name="PingPong" type="Node3D" parent="." unique_id=1094248482]
+script = ExtResource("5_hxab4")
+
+[node name="Table" parent="PingPong" unique_id=1568281546 instance=ExtResource("6_hlp02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.72)
+
+[node name="GameMenu" type="Node" parent="." unique_id=1071571384]
+script = ExtResource("7_qc7p6")

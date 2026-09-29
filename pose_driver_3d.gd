@@ -23,6 +23,8 @@ const HEAD_PITCH_OFFSET := deg_to_rad(-15.0)  # the nose sits a bit below the ea
 @export var max_sideways := 3.0
 ## How much the camera follows the character sideways (0 = fixed, 1 = locked on).
 @export var camera_follow := 0.6
+## Sideways camera offset the follow is added to (games can set this, e.g. an over-the-shoulder view).
+var camera_offset_x := 0.0
 
 # MediaPipe pose landmark indices
 const NOSE := 0
@@ -189,6 +191,22 @@ func is_arms_up() -> bool:
 		and _p(L_WRIST).y > _p(NOSE).y and _p(R_WRIST).y > _p(NOSE).y
 
 
+## True when the player's own `side` ("left" or "right") hand is raised above their head.
+func is_hand_raised(side: String) -> bool:
+	var wrist := L_WRIST if side == "left" else R_WRIST
+	return _is_tracking() and _all_visible([NOSE, wrist]) and _p(wrist).y > _p(NOSE).y
+
+
+## World position of the joint of the rig bone for a limb (e.g. "r_hand", "r_lower_arm"), or null.
+func get_limb_joint(limb: String):
+	if _skeleton == null:
+		return null
+	for bone_name in _rig["limbs"]:
+		if _rig["limbs"][bone_name][1] == limb and _bones.has(bone_name):
+			return _bone_world(_bones[bone_name])
+	return null
+
+
 func _bone_world(idx: int) -> Vector3:
 	return _skeleton.global_transform * _skeleton.get_bone_global_pose(idx).origin
 
@@ -216,7 +234,7 @@ func _process(delta: float) -> void:
 		var target_x := clampf((body_x - 0.5) * sideways_range, -max_sideways, max_sideways)
 		_character.position.x = lerpf(_character.position.x, target_x, 1.0 - exp(-smoothing * delta))
 	if _camera:
-		_camera.position.x = lerpf(_camera.position.x, _character.position.x * camera_follow, 1.0 - exp(-4.0 * delta))
+		_camera.position.x = lerpf(_camera.position.x, camera_offset_x + _character.position.x * camera_follow, 1.0 - exp(-4.0 * delta))
 	if tracking:
 		_status.text = "Tracking"
 	elif _is_connected():
