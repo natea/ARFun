@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://pgdo418kllds"]
+
+[ext_resource type="Script" uid="uid://dp313g7aq3x7v" path="res://pose_driver_3d.gd" id="1_cp2iq"]
+[ext_resource type="Script" uid="uid://bqfisscjo4qkk" path="res://mannequin.gd" id="2_c4110"]
+[ext_resource type="Environment" uid="uid://cn5msdrte50r7" path="res://env/studio.tres" id="3_vpaix"]
+[ext_resource type="Script" uid="uid://dwwhvww0gnpot" path="res://ball_game.gd" id="4_c4110"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cp2iq"]
+albedo_color = Color(0.3, 0.33, 0.38, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nfyk2"]
+size = Vector2(8, 8)
+
+[node name="Body3D" type="Node3D" unique_id=964049387]
+script = ExtResource("1_cp2iq")
+character_scale = 1.2
+
+[node name="Mannequin" type="Skeleton3D" parent="." unique_id=135895384]
+bones/0/name = "Hips"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0.97, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Spine"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+bones/1/enabled = true
+bones/1/position = Vector3(0, 0.1, 0)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Chest"
+bones/2/parent = 1
+bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+bones/2/enabled = true
+bones/2/position = Vector3(0, 0.2, 0)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "Neck"
+bones/3/parent = 2
+bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+bones/3/enabled = true
+bones/3/position = Vector3(0, 0.2, 0)
+bones/3/rotation = Quaternion(0, 0, 0, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "Head"
+bones/4/parent = 3
+bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+bones/4/enabled = true
+bones/4/position = Vector3(0, 0.1, 0)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "LeftUpperArm"
+bones/5/parent = 2
+bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19, 0.16, 0)
+bones/5/enabled = true
+bones/5/position = Vector3(0.19, 0.16, 0)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "LeftLowerArm"
+bones/6/parent = 5
+bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0, 0)
+bones/6/enabled = true
+bones/6/position = Vector3(0.28, 0, 0)
+bones/6/rotation = Quaternion(0, 0, 0, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "LeftHand"
+bones/7/parent = 6
+bones/7/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, 0)
+bones/7/enabled = true
+bones/7/position = Vector3(0.25, 0, 0)
+bones/7/rotation = Quaternion(0, 0, 0, 1)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/name = "RightUpperArm"
+bones/8/parent = 2
+bones/8/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19, 0.16, 0)
+bones/8/enabled = true
+bones/8/position = Vector3(-0.19, 0.16, 0)
+bones/8/rotation = Quaternion(0, 0, 0, 1)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/name = "RightLowerArm"
+bones/9/parent = 8
+bones/9/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0, 0)
+bones/9/enabled = true
+bones/9/position = Vector3(-0.28, 0, 0)
+bones/9/rotation = Quaternion(0, 0, 0, 1)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/name = "RightHand"
+bones/10/parent = 9
+bones/10/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 0)
+bones/10/enabled = true
+bones/10/position = Vector3(-0.25, 0, 0)
+bones/10/rotation = Quaternion(0, 0, 0, 1)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/name = "LeftUpperLeg"
+bones/11/parent = 0
+bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.05, 0)
+bones/11/enabled = true
+bones/11/position = Vector3(0.1, -0.05, 0)
+bones/11/rotation = Quaternion(0, 0, 0, 1)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/name = "LeftLowerLeg"
+bones/12/parent = 11
+bones/12/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43, 0)
+bones/12/enabled = true
+bones/12/position = Vector3(0, -0.43, 0)
+bones/12/rotation = Quaternion(0, 0, 0, 1)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/name = "LeftFoot"
+bones/13/parent = 12
+bones/13/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42, 0)
+bones/13/enabled = true
+bones/13/position = Vector3(0, -0.42, 0)
+bones/13/rotation = Quaternion(0, 0, 0, 1)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/name = "RightUpperLeg"
+bones/14/parent = 0
+bones/14/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.05, 0)
+bones/14/enabled = true
+bones/14/position = Vector3(-0.1, -0.05, 0)
+bones/14/rotation = Quaternion(0, 0, 0, 1)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/name = "RightLowerLeg"
+bones/15/parent = 14
+bones/15/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.43, 0)
+bones/15/enabled = true
+bones/15/position = Vector3(0, -0.43, 0)
+bones/15/rotation = Quaternion(0, 0, 0, 1)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/name = "RightFoot"
+bones/16/parent = 15
+bones/16/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42, 0)
+bones/16/enabled = true
+bones/16/position = Vector3(0, -0.42, 0)
+bones/16/rotation = Quaternion(0, 0, 0, 1)
+bones/16/scale = Vector3(1, 1, 1)
+script = ExtResource("2_c4110")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=859117788]
+transform = Transform3D(-1, 2.1149484e-08, -8.482595e-08, 0, 0.9702957, 0.2419219, 8.742278e-08, 0.2419219, -0.9702957, 0, 1.75, -2.8)
+fov = 50.0
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1085844357]
+transform = Transform3D(-0.8660254, 0.38302228, -0.32139385, 0, 0.64278764, 0.76604444, 0.50000006, 0.66341394, -0.5566704, 0, 0, 0)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=795318913]
+environment = ExtResource("3_vpaix")
+
+[node name="Floor" type="MeshInstance3D" parent="." unique_id=1086589379]
+material_override = SubResource("StandardMaterial3D_cp2iq")
+mesh = SubResource("PlaneMesh_nfyk2")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1262367995]
+
+[node name="Status" type="Label" parent="HUD" unique_id=545647221]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 64.0
+offset_bottom = 43.0
+
+[node name="BallGame" type="Node3D" parent="." unique_id=1455969853]
+script = ExtResource("4_c4110")

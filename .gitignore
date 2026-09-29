@@ -1,0 +1,18 @@
+# Python (tracker/)
+__pycache__/
+.venv/
+
+# Godot editor cache (regenerated on open)
+.godot/
+
+# MediaPipe pose model, downloaded automatically on the tracker's first run
+tracker/pose_landmarker_lite.task
+
+# macOS
+.DS_Store
+
+# Local Claude Code plugin cache (Impeccable)
+.impeccable/
+
+# Temporary preview renders from a Markdown preview app
+.clearance-rendered-preview-*/
