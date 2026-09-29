@@ -7,6 +7,8 @@
 This prototype was built during the
 [Build a Video Game with your Child](https://www.nerdyparentsclub.org/events) workshop,
 offered through the [Nerdy Parents Club of Cambridge](https://nerdyparents.org).
+It was made with [Xogot](https://xogot.com), a Mac-friendly version of
+[Godot](https://godotengine.org), the open source game engine.
 
 ```
 webcam → tracker/tracker.py (MediaPipe Pose) → UDP 127.0.0.1:4242 → pose_receiver.gd (Godot)
@@ -56,7 +58,8 @@ a miss plays an error tone. They come from Kenney's
 ## Using a Mixamo character
 
 1. On mixamo.com pick a character → Download → **FBX Binary**, **T-pose**.
-2. Save it in `characters/` (e.g. `characters/Amy.fbx`).
+2. Save it in `characters/` (e.g. `characters/Amy.fbx`). That folder is git-ignored, since
+   Mixamo's license doesn't allow redistributing the raw character files.
 3. Set `character_scene` on the `Body3D` root node to the .fbx (and `character_scale` if
    the character is small or large). The Mannequin is hidden automatically.
 
