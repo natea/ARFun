@@ -35,6 +35,8 @@ var _center_label := Label.new()
 var _hit_sound := AudioStreamPlayer.new()
 var _chime_sound := AudioStreamPlayer.new()
 var _miss_sound := AudioStreamPlayer.new()
+var _hud := CanvasLayer.new()
+var active := true
 
 
 func _ready() -> void:
@@ -48,7 +50,7 @@ func _ready() -> void:
 	add_child(_miss_sound)
 	_ball_mesh.radius = BALL_RADIUS
 	_ball_mesh.height = BALL_RADIUS * 2.0
-	var hud := CanvasLayer.new()
+	var hud := _hud
 	add_child(hud)
 	for label in [_score_label, _center_label]:
 		label.add_theme_font_size_override("font_size", 30)
@@ -64,8 +66,18 @@ func _ready() -> void:
 	_center_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
 
 
+## Turned on and off by the game menu.
+func set_active(on: bool) -> void:
+	active = on
+	_hud.visible = on
+	set_process(on)
+	_state = State.WAITING
+	for ball in _balls.duplicate():
+		_remove(ball)
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and _state != State.PLAYING:
+	if active and event.is_action_pressed("ui_accept") and _state != State.PLAYING:
 		start_round()
 
 

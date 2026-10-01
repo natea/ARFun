@@ -19,3 +19,7 @@ tracker/pose_landmarker_lite.task
 
 # Mixamo characters (download your own; their license forbids redistributing the raw files)
 characters/
+
+# Demo recordings (upload to YouTube and link from the README instead)
+*.mp4
+*.mov

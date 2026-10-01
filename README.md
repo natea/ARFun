@@ -55,6 +55,29 @@ a miss plays an error tone. They come from Kenney's
 [Impact Sounds](https://kenney.nl/assets/impact-sounds) and
 [Interface Sounds](https://kenney.nl/assets/interface-sounds) packs, CC0 (`sfx/Kenney_*_License.txt`).
 
+## Game menu
+
+The game opens on a menu. Hold your **left** hand above your head for about a second to pick
+the Ball Game, or your **right** hand for Ping Pong (or click a card / press 1 or 2).
+Press **Esc** in any game to come back to the menu. See `game_menu.gd`.
+
+## Ping Pong (`PingPong` node in `body3d.tscn`)
+
+You hold a paddle in your right hand at the near end of a regulation table; a CPU plays the
+far end and serves every point. Raise both hands (or press Space) to start; first to 11 wins.
+
+- Simplified table-tennis rules: the ball must bounce once on the other side. Hitting the net,
+  hitting it out, or letting it bounce twice on your side loses the point.
+- Touching the ball with the paddle is enough: returns are aim-assisted over the net, since
+  webcam tracking is only ~15 fps. Swinging sideways steers the shot and swinging fast makes it
+  faster, and the CPU misses fast shots more often.
+- The table (`ping_pong/ping_pong_table.tscn`) and paddle (`ping_pong/paddle.tscn`) were built
+  with the [Xogot Modeler](https://blog.xogot.com/xogot-modeler/): regulation 2.74 × 1.525 m top
+  at 76 cm with beveled edges, 2 cm edge lines and a 3 mm center line, a 15.25 cm net with posts
+  and clamps, and a metal under-frame with legs and rubber feet.
+- Game logic is in `ping_pong/ping_pong_game.gd`. Table bounce and paddle sounds are from
+  Kenney's Impact Sounds pack (CC0).
+
 ## Using a Mixamo character
 
 1. On mixamo.com pick a character → Download → **FBX Binary**, **T-pose**.
