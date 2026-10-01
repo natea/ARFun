@@ -12,7 +12,12 @@ const NET_HALF_WIDTH := 0.915
 const BALL_RADIUS := 0.02
 const GRAVITY := 7.0  # slower than real life so rallies are playable with body tracking
 const RESTITUTION := 0.9
-const PADDLE_REACH := 0.18  # how close the ball must come to the paddle blade to count as a hit
+const PADDLE_REACH := 0.26  # how close the ball must come to the paddle blade to count as a hit
+## Tracking lags your real arm by roughly a tenth of a second, so hits are also tested against
+## where the paddle is heading (its velocity this far ahead), not just where it is drawn.
+const LATENCY_LOOKAHEAD := 0.12
+## Balls coming at you move at this fraction of full speed, for more reaction time.
+const APPROACH_SLOWMO := 0.75
 const CPU_Z_BEHIND := 0.35  # how far behind its end line the CPU plays
 const WIN_SCORE := 11
 const SUBSTEPS := 4
@@ -236,6 +241,8 @@ func _process(delta: float) -> void:
 
 func _step_ball(dt: float) -> void:
 	var before := _to_table(_ball.global_position)
+	if _last_hitter == "cpu" and before.z < 0.0:
+		dt *= APPROACH_SLOWMO
 	_ball_velocity.y -= GRAVITY * dt
 	_ball.global_position += _ball_velocity * dt
 	var local := _to_table(_ball.global_position)
@@ -280,7 +287,9 @@ func _step_ball(dt: float) -> void:
 	# Your paddle.
 	if _ball_velocity.z < 0.0 and _player_paddle.visible:
 		var blade := _player_paddle.global_position
-		if blade.distance_to(_ball.global_position) < PADDLE_REACH:
+		var heading := (_paddle_velocity * LATENCY_LOOKAHEAD).limit_length(0.4)
+		var nearest := Geometry3D.get_closest_point_to_segment(_ball.global_position, blade, blade + heading)
+		if nearest.distance_to(_ball.global_position) < PADDLE_REACH:
 			_player_hit()
 			return
 

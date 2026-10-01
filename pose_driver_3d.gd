@@ -14,7 +14,7 @@ const HEAD_PITCH_OFFSET := deg_to_rad(-15.0)  # the nose sits a bit below the ea
 ## Uniform scale for `character_scene` (Mixamo kids like Amy are ~1.4 m tall).
 @export var character_scale := 1.0
 ## Higher = snappier, lower = smoother.
-@export var smoothing := 25.0
+@export var smoothing := 40.0
 ## Slide the character sideways as you move across the camera's view.
 @export var follow_sideways := true
 ## Meters the character travels as your hips cross the full width of the camera image.

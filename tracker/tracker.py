@@ -71,7 +71,7 @@ def run_test(sock, addr):
         time.sleep(1 / 30)
 
 
-def run_live(sock, addr, camera_index, show_preview):
+def run_live(sock, addr, camera_index, show_preview, fast=False):
     import cv2
     import mediapipe as mp
     from mediapipe.tasks.python import BaseOptions, vision
@@ -94,7 +94,9 @@ def run_live(sock, addr, camera_index, show_preview):
 
     options = vision.PoseLandmarkerOptions(
         base_options=BaseOptions(model_asset_path=str(MODEL_PATH)),
-        running_mode=vision.RunningMode.VIDEO,
+        # VIDEO mode tracks and smooths landmarks across frames, which trails fast movement a little;
+        # IMAGE mode (--fast) treats every frame on its own: less lag, a bit more jitter.
+        running_mode=vision.RunningMode.IMAGE if fast else vision.RunningMode.VIDEO,
         num_poses=1,
     )
     print(f"Tracking camera {camera_index} -> {addr[0]}:{addr[1]} (press q in the preview to quit)")
@@ -125,7 +127,8 @@ def run_live(sock, addr, camera_index, show_preview):
             ts = max(int((time.monotonic() - start) * 1000), last_ts + 1)
             last_ts = ts
             t_detect = time.monotonic()
-            result = landmarker.detect_for_video(mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb), ts)
+            image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+            result = landmarker.detect(image) if fast else landmarker.detect_for_video(image, ts)
             detect_time += time.monotonic() - t_detect
 
             if result.pose_landmarks:
@@ -165,6 +168,7 @@ def main():
     parser.add_argument("--camera", type=int, default=0)
     parser.add_argument("--no-preview", action="store_true", help="don't show the webcam window")
     parser.add_argument("--test", action="store_true", help="send a fake animated pose instead of using the camera")
+    parser.add_argument("--fast", action="store_true", help="no cross-frame smoothing: less lag, a bit more jitter")
     args = parser.parse_args()
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -173,7 +177,7 @@ def main():
         if args.test:
             run_test(sock, addr)
         else:
-            run_live(sock, addr, args.camera, not args.no_preview)
+            run_live(sock, addr, args.camera, not args.no_preview, args.fast)
     except KeyboardInterrupt:
         pass
 
